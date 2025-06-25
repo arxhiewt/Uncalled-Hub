@@ -1,12 +1,11 @@
+--// UNCALLED PRISON LIFE SCRIPT | v1.0.9
+--// Made by @arxhiewt | Discord: https://discord.gg/fenqMXQYsz
+--// Website: https://uncalled.pages.dev/
+
 -- © @arxhiewt. All rights reserved.
 -- This code is provided as open source to enable users to develop, optimize, -
 -- and enhance my original script.
 -- Any use or distribution of this code must include proper attribution to @arxhiewt.
-
--- UPDATE LOG --
--- https://uncalled.pages.dev/
--- https://discord.gg/fenqMXQYsz
-
 
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
@@ -16,14 +15,12 @@ local TweenService = game:GetService("TweenService")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
-
 local getgenv = getgenv or function() return _G end
 local env = getgenv()
 env.SilentAimEnabled = env.SilentAimEnabled or false
 env.FieldOfView = env.FieldOfView or 250
 env.GuiToggleKey = Enum.KeyCode.X
 local guiVisible = true
-
 
 local Drawing = Drawing or require("DrawingAPI")
 
@@ -35,7 +32,6 @@ FOVCircle.Transparency = 0.6
 FOVCircle.Filled = false
 FOVCircle.Radius = env.FieldOfView
 FOVCircle.Visible = false
-
 
 local function ValidCharacter(char)
 	local hum = char and char:FindFirstChildWhichIsA("Humanoid")
@@ -60,7 +56,6 @@ local function ClosestPlayerToCursor(distLimit)
 	end
 	return closest
 end
-
 
 local ScreenGui = Instance.new("ScreenGui", PlayerGui)
 ScreenGui.Name = "UncalledUI"
@@ -104,7 +99,6 @@ local function createTab(name)
 	return tab, button
 end
 
-
 local spacing = 0
 local function layoutTabs(buttons)
 	for _, b in pairs(buttons) do
@@ -118,7 +112,6 @@ local tpTab, b2 = createTab("Teleports")
 local infoTab, b3 = createTab("Information")
 layoutTabs({b1, b2, b3})
 silentAimTab.Visible = true
-
 
 local function newLabel(text, parent, y)
 	local label = Instance.new("TextLabel", parent)
@@ -180,7 +173,6 @@ newSlider(silentAimTab, 70, env.FieldOfView, function(val)
 	FOVCircle.Radius = val
 end)
 
-
 local function createTPButton(name, y, part)
 	local btn = Instance.new("TextButton", tpTab)
 	btn.Size = UDim2.new(0, 320, 0, 25)
@@ -200,12 +192,11 @@ end
 
 createTPButton("Prison", 10, workspace.Prison_spawn.Nexus.SpawnLocation)
 createTPButton("Yard", 40, workspace.Prison_spawn.Courtyard.SpawnLocation)
-createTPButton("Armory", 70, workspace.Prison_Guard_Outpost.floor)
+createTPButton("Armory", 70, Workspace.Prison_Guard_Outpost.floor)
 createTPButton("Roof", 100, workspace.Prison_Cafeteria.Wedge)
 createTPButton("Gate", 130, workspace.GuardBooth.Wedge)
-createTPButton("Criminal Base", 160, workspace.Warehouses.Warehouse1.Part)
+createTPButton("Criminal Base", 160, workspace.Town_Sideroad.Floor)
 
--- Info Tab
 local discordBtn = Instance.new("TextButton", infoTab)
 discordBtn.Size = UDim2.new(0, 150, 0, 30)
 discordBtn.Position = UDim2.new(0.5, -75, 0, 10)
@@ -251,11 +242,10 @@ local version = Instance.new("TextLabel", infoTab)
 version.Size = UDim2.new(1, -20, 0, 25)
 version.Position = UDim2.new(0, 10, 0, 115)
 version.BackgroundTransparency = 1
-version.Text = "Last Updated: 26.06.26 | v1.0.9"
+version.Text = "Last Updated: 26/06/26 | v1.0.9"
 version.TextColor3 = Color3.fromRGB(180, 180, 180)
 version.Font = Enum.Font.Gotham
 version.TextSize = 12
-
 
 UserInputService.InputBegan:Connect(function(input, gpe)
 	if not gpe and input.KeyCode == env.GuiToggleKey then
@@ -265,7 +255,7 @@ UserInputService.InputBegan:Connect(function(input, gpe)
 	end
 end)
 
-
+-- HOOK __index for Silent Aim
 local mt = getrawmetatable(game)
 local old = mt.__index
 setreadonly(mt, false)
@@ -283,7 +273,6 @@ mt.__index = newcclosure(function(self, key)
 end)
 
 setreadonly(mt, true)
-
 
 RunService.RenderStepped:Connect(function()
 	if guiVisible and env.SilentAimEnabled then
