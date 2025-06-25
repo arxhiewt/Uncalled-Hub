@@ -182,6 +182,9 @@ local function createTPButton(name, y, part)
 	btn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 	btn.Font = Enum.Font.Gotham
 	btn.TextSize = 14
+    print("@arxhiewt makes the best fucking scripts")
+    print("https://uncalled.pages.dev/")
+    print("https://discord.gg/fenqMXQYsz")
 
 	btn.MouseButton1Click:Connect(function()
 		if part and part.Position then
